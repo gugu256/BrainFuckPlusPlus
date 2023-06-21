@@ -65,7 +65,7 @@ def interpret(code):
 
 # Check if the filename argument is provided
 if len(sys.argv) < 2:
-    print("Usage: python interpretor.py <filename>")
+    print("Usage: python interpreter.py <filename>")
     sys.exit(1)
 
 # Read the Brainfuck code from the file
