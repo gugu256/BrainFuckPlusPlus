@@ -11,7 +11,7 @@ def clear(): # Cross-platform console clearer
 def interpret(code):
     code_ptr = 0
     data_ptr = 0
-    data = [0] * 100000
+    data = [0] * 50000
     output = []
 
     while code_ptr < len(code):
@@ -49,9 +49,10 @@ def interpret(code):
                     loop_depth -= 1
         
         # BF++ !!
-        elif instruction == "!":
+        elif instruction == "$": # Output the NUMBER of the pointer 
             output.append(str(data[data_ptr]))
-        elif instruction == "=":
+
+        elif instruction == "=": # == equivalent
             value1 = data[data_ptr-2]
             value2 = data[data_ptr-1]
             if value1 == value2:
@@ -59,11 +60,68 @@ def interpret(code):
             else:
                 data[data_ptr] = 0
 
-        # TO DO :
-        # all types of conditions operators
-        # Swapping values
-        # copying values
+        elif instruction == "!": # != equivalent
+            value1 = data[data_ptr-2]
+            value2 = data[data_ptr-1]
+            if value1 != value2:
+                data[data_ptr] = 1
+            else:
+                data[data_ptr] = 0
+
+        elif instruction == "{": # < equivalent
+            value1 = data[data_ptr-2]
+            value2 = data[data_ptr-1]
+            if value1 < value2:
+                data[data_ptr] = 1
+            else:
+                data[data_ptr] = 0
+
+        elif instruction == "}": # > equivalent
+            value1 = data[data_ptr-2]
+            value2 = data[data_ptr-1]
+            if value1 > value2:
+                data[data_ptr] = 1
+            else:
+                data[data_ptr] = 0
+
+        elif instruction == "~": # Swap The Values
+            stock = data[data_ptr]
+            data[data_ptr] = data[data_ptr-1]
+            data[data_ptr-1] = stock
         
+        elif instruction == "?":
+            output.append(str(data_ptr))
+        
+        elif instruction == ";": # "Comment" (ignore next instruction)
+            pointer_increment += 1
+        
+        elif instruction == "|": # Copy value to the next bit(?)
+            data[data_ptr] = data[data_ptr-1]
+
+        elif instruction == "*": # print THE WHOLE array
+            for bit in data:
+                print(str(bit), end=", ")
+        
+        elif instruction == "'": # Add the last two bits
+            data[data_ptr] = data[data_ptr-1] + data[data_ptr-2]
+        
+        elif instruction == "_": # Substract the last two bits
+            data[data_ptr] =  data[data_ptr-1] - data[data_ptr-2]
+        
+        elif instruction == "&": # Multiply the last two bits
+            data[data_ptr] =  data[data_ptr-1] * data[data_ptr-2]
+
+        elif instruction == "/": # Divide the last two digits
+            data[data_ptr] = round(data[data_ptr-1] / data[data_ptr-2], 1)
+        
+        elif instruction == "@": # Add 0.1 to the bits
+            data[data_ptr] += 0.1
+
+        elif instruction == "§": # Substract 0.1 to the bits
+            data[data_ptr] -= 0.1
+
+        # TO DO :
+        # (\:)%"
 
         code_ptr = code_ptr + 1 + pointer_increment
 
