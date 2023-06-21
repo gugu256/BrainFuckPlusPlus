@@ -59,6 +59,12 @@ def interpret(code):
             else:
                 data[data_ptr] = 0
 
+        # TO DO :
+        # all types of conditions operators
+        # Swapping values
+        # copying values
+        
+
         code_ptr = code_ptr + 1 + pointer_increment
 
     return ''.join(output)
