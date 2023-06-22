@@ -52,7 +52,7 @@ def interpret(code):
         elif instruction == "$": # Output the NUMBER of the pointer 
             output.append(str(data[data_ptr]))
 
-        elif instruction == "=": # == equivalent
+        elif instruction == "=": # == equivalent # 1, 1, 0 --> 1, 1, 1 | 1, 0, 1, --> 1, 0, 0
             value1 = data[data_ptr-2]
             value2 = data[data_ptr-1]
             if value1 == value2:
@@ -60,7 +60,7 @@ def interpret(code):
             else:
                 data[data_ptr] = 0
 
-        elif instruction == "!": # != equivalent
+        elif instruction == "!": # != equivalent # 1, 2, 0 --> 1, 2, 1
             value1 = data[data_ptr-2]
             value2 = data[data_ptr-1]
             if value1 != value2:
@@ -68,7 +68,7 @@ def interpret(code):
             else:
                 data[data_ptr] = 0
 
-        elif instruction == "{": # < equivalent
+        elif instruction == "{": # < equivalent # 1, 2, 0 -- > 1, 2, 1
             value1 = data[data_ptr-2]
             value2 = data[data_ptr-1]
             if value1 < value2:
@@ -76,7 +76,7 @@ def interpret(code):
             else:
                 data[data_ptr] = 0
 
-        elif instruction == "}": # > equivalent
+        elif instruction == "}": # > equivalent # 2, 1, 0 --> 2, 1, 1
             value1 = data[data_ptr-2]
             value2 = data[data_ptr-1]
             if value1 > value2:
@@ -84,7 +84,7 @@ def interpret(code):
             else:
                 data[data_ptr] = 0
 
-        elif instruction == "~": # Swap The Values
+        elif instruction == "~": # Swap The Values # 1, 2 --> 2, 1
             stock = data[data_ptr]
             data[data_ptr] = data[data_ptr-1]
             data[data_ptr-1] = stock
@@ -95,29 +95,29 @@ def interpret(code):
         elif instruction == ";": # "Comment" (ignore next instruction)
             pointer_increment += 1
         
-        elif instruction == "|": # Copy value to the next bit(?)
+        elif instruction == "|": # Copy value to the next bit(?) # 1, 0 --> 1, 1
             data[data_ptr] = data[data_ptr-1]
 
         elif instruction == "*": # print THE WHOLE array
             for bit in data:
                 print(str(bit), end=", ")
         
-        elif instruction == "'": # Add the last two bits
+        elif instruction == "'": # Add the last two bits # 1, 3, 0 --> 1, 3, 4
             data[data_ptr] = data[data_ptr-1] + data[data_ptr-2]
         
-        elif instruction == "_": # Substract the last two bits
-            data[data_ptr] =  data[data_ptr-1] - data[data_ptr-2]
+        elif instruction == "_": # Substract the last two bits # 1, 3, 0 --> 1, 3, -2
+            data[data_ptr] =  data[data_ptr-2] - data[data_ptr-1]
         
-        elif instruction == "&": # Multiply the last two bits
+        elif instruction == "&": # Multiply the last two bits # 2, 2, 0 --> 2, 2, 4
             data[data_ptr] =  data[data_ptr-1] * data[data_ptr-2]
 
-        elif instruction == "/": # Divide the last two digits
-            data[data_ptr] = round(data[data_ptr-1] / data[data_ptr-2], 1)
+        elif instruction == "/": # Divide the last two digits # 5, 2, 0 --> 5, 2, 2.5
+            data[data_ptr] = round(data[data_ptr-2] / data[data_ptr-1], 1)
         
-        elif instruction == "@": # Add 0.1 to the bits
+        elif instruction == "@": # Add 0.1 to the bit
             data[data_ptr] += 0.1
 
-        elif instruction == "§": # Substract 0.1 to the bits
+        elif instruction == "§": # Substract 0.1 to the bit
             data[data_ptr] -= 0.1
 
         # TO DO :
