@@ -10,14 +10,13 @@ def clear(): # Cross-platform console clearer
 
 characters = []
 
-characters += " " + "\n" + "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789><+-.[,]$=!{;}~?|*'&@_/§:" + '\\'
-
-print(dict)
+characters += " " + "\n" + "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789><+-.()[,]$=!{;}~?|*'&@_/§:" + '\\'
 
 def interpret(code):
     code_ptr = 0
     can_increment = True
     data_ptr = 0
+    secondary_digit = 0
     data = [0] * 50000
     output = []
 
@@ -126,6 +125,12 @@ def interpret(code):
 
         elif instruction == "§": # Substract 0.1 to the bit
             data[data_ptr] -= 0.1
+        
+        elif instruction == "(":
+            data[data_ptr] = secondary_digit
+
+        elif instruction == ")":
+            secondary_digit = data[data_ptr]
 
         # TO DO :
         # ()%"
