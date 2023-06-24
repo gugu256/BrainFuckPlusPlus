@@ -8,8 +8,15 @@ def clear(): # Cross-platform console clearer
   else:
     cmd("cls")
 
+characters = []
+
+characters += " " + "\n" + "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789><+-.[,]$=!{;}~?|*'&@_/§:" + '\\'
+
+print(dict)
+
 def interpret(code):
     code_ptr = 0
+    can_increment = True
     data_ptr = 0
     data = [0] * 50000
     output = []
@@ -28,9 +35,9 @@ def interpret(code):
         elif instruction == "-":
             data[data_ptr] = (data[data_ptr] - 1)
         elif instruction == ".":
-            output.append(chr(data[data_ptr]))
+            output.append(characters[data[data_ptr]])
         elif instruction == ",":
-            data[data_ptr] = ord(input()[0])
+            data[data_ptr] = int(input()[0])
         elif instruction == "[" and data[data_ptr] == 0:
             loop_depth = 1
             while loop_depth > 0:
@@ -121,9 +128,11 @@ def interpret(code):
             data[data_ptr] -= 0.1
 
         # TO DO :
-        # (\:)%"
-
-        code_ptr = code_ptr + 1 + pointer_increment
+        # ()%"
+        if can_increment:
+            code_ptr = code_ptr + 1 + pointer_increment
+        else:
+            pass
 
     return ''.join(output)
 
