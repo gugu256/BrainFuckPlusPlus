@@ -6,4 +6,6 @@ Of course, it provides retro-compatibility for normal BF programs.
 
 Usage :
 
-`$ python interpreter.py <program.bf>`
+`python interpreter.py <program.bf>`
+
+Important : This project is not finished really.
